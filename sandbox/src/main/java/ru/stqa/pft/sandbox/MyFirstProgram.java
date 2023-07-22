@@ -1,4 +1,4 @@
-
+package java.ru.stqa.pft.sandbox;
 
 public class MyFirstProgram {
 	
