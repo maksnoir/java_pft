@@ -19,7 +19,7 @@ public class ContactCreationTests {
   public void setUp() throws Exception {
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    wd.get("http://localhost:84/addressbook/");
+    wd.get("http://localhost/addressbook/");
 
     login("admin", "secret");
   }
