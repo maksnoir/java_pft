@@ -3,39 +3,41 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
-    private final NavigationHelper navigationHelper = new NavigationHelper();
+    private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
 
     private SessionHelper sessionHelper;
     private String admin;
 
     public void init() {
-        navigationHelper.wd = new FirefoxDriver();
-        navigationHelper.wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        navigationHelper.wd.get("http://localhost/addressbook/"); //group.php
-        groupHelper = new GroupHelper(navigationHelper.wd);
+        WebDriver webDriver = new FirefoxDriver();
+        navigationHelper = new NavigationHelper(webDriver);
+        navigationHelper.getWebDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        navigationHelper.getWebDriver().get("http://localhost/addressbook/"); //group.php
+        groupHelper = new GroupHelper(navigationHelper.getWebDriver());
         sessionHelper.login ("admin", "secret");
-        sessionHelper = new SessionHelper(navigationHelper.wd);
+        sessionHelper = new SessionHelper(navigationHelper.getWebDriver());
     }
 
 
 
     public void logout() {
-      navigationHelper.wd.findElement(By.linkText("Logout")).click();
+      navigationHelper.getWebDriver().findElement(By.linkText("Logout")).click();
     }
 
     public void stop() {
-        navigationHelper.wd.quit();
+        navigationHelper.getWebDriver().quit();
     }
 
     private boolean isElementPresent(By by) {
       try {
-        navigationHelper.wd.findElement(by);
+        navigationHelper.getWebDriver().findElement(by);
         return true;
       } catch (NoSuchElementException e) {
         return false;
@@ -44,7 +46,7 @@ public class ApplicationManager {
 
     private boolean isAlertPresent() {
       try {
-        navigationHelper.wd.switchTo().alert();
+        navigationHelper.getWebDriver().switchTo().alert();
         return true;
       } catch (NoAlertPresentException e) {
         return false;

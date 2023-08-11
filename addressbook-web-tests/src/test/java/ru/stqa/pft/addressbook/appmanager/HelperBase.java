@@ -4,19 +4,28 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class HelperBase {
-    protected WebDriver wd;
+    private WebDriver webDriver;
 
-    public HelperBase(WebDriver wd) {
-        this.wd = wd;
+    public HelperBase(WebDriver webDriver) {
+        this.webDriver = webDriver;
+    }
+
+    public WebDriver getWebDriver() {
+        return webDriver;
+    }
+
+    public void setWebDriver(WebDriver webDriver) {
+        this.webDriver = webDriver;
     }
 
     protected void click(By locator) {
-        wd.findElement(locator).click();
+        webDriver.findElement(locator).click();
     }
 
     protected void type(String group_name, By locator, String text) {
         click(locator);
-        wd.findElement(locator).clear();
-        wd.findElement(locator).sendKeys(text);
+        webDriver.findElement(locator).clear();
+        webDriver.findElement(locator).sendKeys(text);
     }
+
 }
