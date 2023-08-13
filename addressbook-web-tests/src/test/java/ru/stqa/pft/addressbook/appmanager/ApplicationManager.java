@@ -18,11 +18,11 @@ public class ApplicationManager {
     public void init() {
         WebDriver webDriver = new FirefoxDriver();
         navigationHelper = new NavigationHelper(webDriver);
-        navigationHelper.getWebDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         navigationHelper.getWebDriver().get("http://localhost/addressbook/"); //group.php
+        sessionHelper = new SessionHelper(navigationHelper.getWebDriver());
         groupHelper = new GroupHelper(navigationHelper.getWebDriver());
         sessionHelper.login ("admin", "secret");
-        sessionHelper = new SessionHelper(navigationHelper.getWebDriver());
+
     }
 
 
