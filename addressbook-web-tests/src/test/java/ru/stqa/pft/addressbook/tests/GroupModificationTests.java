@@ -10,7 +10,7 @@ public class GroupModificationTests extends TestBase {
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().initGroupModification();
         app.getGroupHelper().fillGroupForm(new GroupData("test3", "test4", "test5"));
-        app.getGroupHelper().submitGroupModification();
+        app.getGroupHelper().confirmGroupModification("update");
         //app.getGroupHelper().returnToGroupPage();
     }
 }
